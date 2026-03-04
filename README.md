@@ -10,6 +10,7 @@ Current implementation includes:
 - JWT-based authentication and role-based access control (`admin`, `viewer`)
 - Store management (create, update, list, delete)
 - DVR management (add, edit, delete, connectivity test, channel auto-detect scaffold)
+- Enterprise dashboard UI redesign (Cisco Meraki-inspired layout)
 - Viewer monitoring dashboard with searchable stores and camera grid layouts (4/9/16)
 - Bulk onboarding via CSV upload
 - Sample CSV template download endpoint for onboarding
@@ -22,6 +23,30 @@ Current implementation includes:
 - Database: PostgreSQL 16
 - Media Bridge: go2rtc + FFmpeg
 - Deployment: Docker Compose
+
+## Frontend UI (Latest)
+The frontend now follows a modern enterprise dashboard style with:
+- Collapsible left sidebar navigation (240px desktop width)
+- Top enterprise header with Croma logo, store search, notifications, and user menu
+- Centralized dashboard overview cards (stores, DVRs, cameras, online/offline)
+- Live monitoring camera grid with 4/9/16 view modes
+- Quick store search panel (store code, store name, city)
+- Dedicated bulk onboarding page with:
+  - CSV upload
+  - sample CSV download
+  - data preview
+  - upload progress indicator
+- System Health page
+- Settings page
+- Global footer with platform and developer credit
+
+Reusable React components:
+- `Sidebar.jsx`
+- `Header.jsx`
+- `DashboardCards.jsx`
+- `CameraGrid.jsx`
+- `StoreSearch.jsx`
+- `Footer.jsx`
 
 ## Architecture
 ```text
@@ -50,6 +75,13 @@ frontend/
   public/assets/logo.png
   src/
     api/ context/ components/ pages/
+      components/
+        AppShell.jsx Sidebar.jsx Header.jsx Footer.jsx
+        DashboardCards.jsx CameraGrid.jsx StoreSearch.jsx
+      pages/
+        DashboardPage.jsx ViewerMonitoringPage.jsx
+        BulkOnboardingPage.jsx SystemHealthPage.jsx SettingsPage.jsx
+        AdminStoresPage.jsx AdminDVRsPage.jsx AdminUsersPage.jsx LoginPage.jsx
   Dockerfile
   package.json
 

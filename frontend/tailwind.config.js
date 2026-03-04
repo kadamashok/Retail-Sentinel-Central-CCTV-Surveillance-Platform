@@ -4,14 +4,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: "#ecf4f3",
-          100: "#d9e8e6",
-          500: "#1f6f78",
-          700: "#14444a",
-          900: "#0d2d31"
+        enterprise: {
+          50: "#f5f7fa",
+          100: "#e7edf5",
+          200: "#cdd9e8",
+          500: "#00a3ff",
+          700: "#1f3a5f",
+          900: "#14263e",
         },
-        accent: "#e77f2f"
+        brand: {
+          50: "#f5f7fa",
+          100: "#e7edf5",
+          500: "#00a3ff",
+          700: "#1f3a5f",
+          900: "#14263e",
+        },
+        accent: "#00a3ff",
+        status: {
+          healthy: "#16a34a",
+          warning: "#f59e0b",
+          offline: "#dc2626",
+        },
       }
     }
   },
