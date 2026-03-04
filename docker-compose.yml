@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:16
+    container_name: retail-sentinel-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: retail_sentinel
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "55432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: retail-sentinel-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/retail_sentinel
+    depends_on:
+      - db
+    ports:
+      - "18000:8000"
+
+  media:
+    image: alexxit/go2rtc:latest
+    container_name: retail-sentinel-media
+    restart: unless-stopped
+    volumes:
+      - ./media/go2rtc.yaml:/config/go2rtc.yaml
+    ports:
+      - "11984:1984"
+      - "18555:8555"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: retail-sentinel-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_BASE_URL: http://localhost:18000/api/v1
+    depends_on:
+      - backend
+    ports:
+      - "15173:5173"
+
+volumes:
+  postgres_data:

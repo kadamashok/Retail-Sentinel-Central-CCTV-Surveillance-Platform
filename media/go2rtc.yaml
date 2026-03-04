@@ -1,0 +1,11 @@
+api:
+  listen: ":1984"
+
+webrtc:
+  listen: ":8555"
+  candidates:
+    - 127.0.0.1:18555
+
+ffmpeg:
+  bin: ffmpeg
+  rtsp: "-fflags nobuffer -flags low_delay -timeout 5000000 -rtsp_transport tcp -i {input}"
